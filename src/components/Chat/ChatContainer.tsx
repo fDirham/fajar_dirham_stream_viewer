@@ -1,31 +1,19 @@
 import { useEffect, useMemo, useState } from "react";
-import type { AppEventStream } from "../../model/AppEventStream";
 
 import type { AppMessageEventLog } from "../../model/AppMessageEvent";
-import {
-  MockEventStream,
-  MockEventStreamNames,
-} from "../../model/MockEventStream";
 import ChatView from "./ChatView";
 import deriveChatMessages from "./deriveChatMessages";
-
-export const EventStreamOptions = [
-  MockEventStreamNames.A,
-  MockEventStreamNames.B,
-  MockEventStreamNames.C,
-  "None",
-] as const;
-
-export type EventStreamOptionValue = (typeof EventStreamOptions)[number];
+import { EventStreamMap } from "../../model/EventStreamMap";
 
 export default function ChatContainer() {
   // MARK: State
   const [appMessageEventList, setAppMessageEventList] = useState<
     AppMessageEventLog[]
   >([]);
-  const [eventStream, setEventStream] = useState<AppEventStream | null>(
-    new MockEventStream("A")
-  );
+  const [eventStreamId, setEventStreamId] = useState<string>("A");
+  const eventStream = EventStreamMap[eventStreamId]
+    ? EventStreamMap[eventStreamId].eventStream
+    : null;
   const [chatInputValue, setChatInputValue] = useState<string>("");
 
   const chatMessageList = useMemo(() => {
@@ -51,42 +39,6 @@ export default function ChatContainer() {
     };
   }, [eventStream]);
 
-  // MARK: Streams switching
-  const getEventStreamName = (): EventStreamOptionValue => {
-    if (eventStream === null) {
-      return "None";
-    }
-    if (
-      EventStreamOptions.includes(eventStream.name as EventStreamOptionValue)
-    ) {
-      return eventStream.name as EventStreamOptionValue;
-    }
-
-    console.warn("Unrecognized event stream name:", eventStream.name);
-
-    return "None";
-  };
-
-  const setEventStreamByName = (name: EventStreamOptionValue) => {
-    console.log("Current event stream name:", getEventStreamName());
-    console.log("Setting event stream to:", name);
-
-    switch (name) {
-      case MockEventStreamNames.A:
-        setEventStream(new MockEventStream("A"));
-        break;
-      case MockEventStreamNames.B:
-        setEventStream(new MockEventStream("B"));
-        break;
-      case MockEventStreamNames.C:
-        setEventStream(new MockEventStream("C"));
-        break;
-      default:
-        setEventStream(null);
-        break;
-    }
-  };
-
   // MARK: Chat input handling
   const onChatInputSubmit = () => {
     if (eventStream === null) {
@@ -102,8 +54,8 @@ export default function ChatContainer() {
   return (
     <ChatView
       chatMessageList={chatMessageList}
-      eventStreamName={getEventStreamName()}
-      setEventStreamByName={setEventStreamByName}
+      eventStreamId={eventStreamId}
+      setEventStreamId={setEventStreamId}
       chatInputValue={chatInputValue}
       setChatInputValue={setChatInputValue}
       onChatInputSubmit={onChatInputSubmit}

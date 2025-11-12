@@ -1,12 +1,9 @@
-import {
-  EventStreamOptions,
-  type EventStreamOptionValue,
-} from "../Chat/ChatContainer";
+import { EventStreamMap } from "../../model/EventStreamMap";
 import styles from "./ChatHeader.module.css";
 
 type ChatHeaderProps = {
-  eventStreamName: EventStreamOptionValue;
-  setEventStreamByName: (name: EventStreamOptionValue) => void;
+  eventStreamId: string;
+  setEventStreamId: (id: string) => void;
 };
 
 function ChatHeader(props: ChatHeaderProps) {
@@ -14,15 +11,15 @@ function ChatHeader(props: ChatHeaderProps) {
     <div className={styles.container}>
       <h2>AI Chat</h2>
       <select
-        value={props.eventStreamName}
+        value={props.eventStreamId}
         onChange={(e) => {
-          props.setEventStreamByName(e.target.value as EventStreamOptionValue);
+          props.setEventStreamId(e.target.value);
         }}
         className={styles.select}
       >
-        {EventStreamOptions.map((option) => (
-          <option key={option} value={option}>
-            {option}
+        {Object.entries(EventStreamMap).map(([key, val]) => (
+          <option key={key} value={key}>
+            {val.label}
           </option>
         ))}
       </select>

@@ -3,10 +3,10 @@ import type { AppMessageEventRaw } from "./AppMessageEvent";
 type UnsubscribeFn = () => void;
 
 export abstract class AppEventStream {
-  name: string;
+  id: string;
 
-  constructor(name: string) {
-    this.name = name;
+  constructor(id: string) {
+    this.id = id;
   }
 
   abstract subscribe(cb: (message: AppMessageEventRaw) => void): UnsubscribeFn;

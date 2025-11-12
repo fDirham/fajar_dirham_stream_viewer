@@ -29,9 +29,13 @@ In case we need to render the chat functionality in different contexts, e.g as p
 
 ### Abstracted event streams
 
-Since the instructions were a bit vague on the type of event stream, I went ahead and made an abstract AppEventStream class and implemented MockEventStream. AppEventStream was designed with websockets in mind, just having a simple abstract method for subscribe that returns an unsubscribe function and a sendMessage in case we want to send things up stream.
+Since the instructions were a bit vague on the type of event stream and how we were going to subscribe to it, I went ahead and made an abstract `AppEventStream` class and implemented `MockEventStream` for the sample event streams given. `AppEventStream` was designed with websockets in mind, just having a simple abstract method for subscribe that returns an unsubscribe function and a sendMessage in case we want to send things up stream.
 
-MockEventStream uses the mock inputs and publishes a new message every second or so. Because of this abstraction, we can easily hook actual event streams to the system.
+`MockEventStream` uses the mock inputs and publishes a new message every second or so. Because of this abstraction, we can easily hook actual event streams to the system.
+
+### Switching Event Streams
+
+I defined an EventStreamMap constants file that maps id strings to AppEventStream objects. We keep track of an event stream id state and derive which object to use depending on the value of said id. A use effect fires to clear the chats upon change of this id.
 
 ### Deriving chat messages from a stored event list
 
@@ -106,4 +110,4 @@ Spent about 30 mins planning, didn't really time myself after but I think I spen
 
 ### What I can improve
 
-Not really happy with some of the looks of the tool status blocks. Also might be able to clean the project up some more, better tests, better stories, better class names, etc.
+Not really happy with some of the looks of the tool status blocks. Also might be able to clean the project up some more, better tests, better stories, better class names, etc. Other than that, event stream objects are all created on page load so maybe some lazy loading there if that's costly.

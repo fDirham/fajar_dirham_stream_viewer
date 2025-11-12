@@ -3,12 +3,11 @@ import ChatHeader from "../ChatHeader";
 import ChatInput from "../ChatInput";
 import ChatList from "../ChatList";
 import styles from "./Chat.module.css";
-import type { EventStreamOptionValue } from "./ChatContainer";
 
 type ChatViewProps = {
   chatMessageList: ChatMessage[];
-  eventStreamName: EventStreamOptionValue;
-  setEventStreamByName: (name: EventStreamOptionValue) => void;
+  eventStreamId: string;
+  setEventStreamId: (id: string) => void;
   chatInputValue: string;
   setChatInputValue: (newValue: string) => void;
   onChatInputSubmit: () => void;
@@ -18,8 +17,8 @@ function ChatView(props: ChatViewProps) {
   return (
     <div className={styles.container}>
       <ChatHeader
-        eventStreamName={props.eventStreamName}
-        setEventStreamByName={props.setEventStreamByName}
+        eventStreamId={props.eventStreamId}
+        setEventStreamId={props.setEventStreamId}
       />
       <ChatList chatMessageList={props.chatMessageList} />
       <ChatInput

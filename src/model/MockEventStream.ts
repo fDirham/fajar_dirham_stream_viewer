@@ -93,20 +93,12 @@ export const MOCK_STREAM_C: AppMessageEventRaw[] = [
   { id: 4, type: "tool_call_execution_start", tool_name: "find_theaters" },
 ];
 
-export const MockEventStreamNames = {
-  A: "Mock event stream: A",
-  B: "Mock event stream: B",
-  C: "Mock event stream: C",
-} as const;
-
 export class MockEventStream extends AppEventStream {
-  id: "A" | "B" | "C";
   interval: number;
   listeners: ((message: AppMessageEventRaw) => void)[] = [];
 
   constructor(id: "A" | "B" | "C", interval: number = 1000) {
-    super(MockEventStreamNames[id]);
-    this.id = id;
+    super(id);
     this.interval = interval;
   }
 
