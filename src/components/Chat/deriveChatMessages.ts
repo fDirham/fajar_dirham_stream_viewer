@@ -65,7 +65,7 @@ export default function deriveChatMessages(
           args: currLog.args,
         });
         break;
-      case AppMessageEventType.TOOL_CALL_EXECUTION_START:
+      case AppMessageEventType.TOOL_CALL_EXECUTION_START: {
         const toolToStart = findNearestToolStatusChatMessageWithName(
           firstPassArr,
           currLog.tool_name,
@@ -76,7 +76,8 @@ export default function deriveChatMessages(
           toolToStart.eventIds.push("cm_" + currLog.id);
         }
         break;
-      case AppMessageEventType.TOOL_CALL_EXECUTION_COMPLETE:
+      }
+      case AppMessageEventType.TOOL_CALL_EXECUTION_COMPLETE: {
         const toolToComplete = findNearestToolStatusChatMessageWithName(
           firstPassArr,
           currLog.tool_name,
@@ -88,6 +89,7 @@ export default function deriveChatMessages(
           toolToComplete.result = currLog.result;
         }
         break;
+      }
       default:
         console.warn("Unhandled event log", currLog);
     }

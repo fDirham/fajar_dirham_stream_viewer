@@ -112,7 +112,6 @@ export class MockEventStream extends AppEventStream {
 
   subscribe(cb: (message: AppMessageEventRaw) => void): () => void {
     let index = 0;
-    let intervalId: NodeJS.Timeout;
 
     const data =
       this.id == "A"
@@ -122,7 +121,7 @@ export class MockEventStream extends AppEventStream {
         : MOCK_STREAM_C;
 
     this.listeners.push(cb);
-    intervalId = setInterval(() => {
+    const intervalId = setInterval(() => {
       if (index < data.length) {
         this.listeners.forEach((fn) => fn(data[index]));
         index++;
