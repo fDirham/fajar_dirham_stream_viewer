@@ -1,0 +1,55 @@
+.container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+}
+
+.inputContainer {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0 8px;
+  width: 440px;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  height: 40px;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--input-background-color);
+  color: var(--input-text-color);
+  font-family: inherit;
+  font-size: 16px;
+}
+
+.sendButton {
+  background: none;
+  border: none;
+  background-color: var(--input-background-color);
+  height: 40px;
+  width: 40px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.sendIcon {
+  height: 24px;
+  width: 24px;
+  stroke: var(--input-text-color);
+}
+
+@media (max-width: 440px) {
+  .inputContainer {
+    width: 100%;
+  }
+}

@@ -1,0 +1,6 @@
+.container {
+  background-color: var(--assistant-color);
+  padding: 8px;
+  border-radius: 8px;
+  max-width: 300px;
+}

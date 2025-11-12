@@ -1,0 +1,31 @@
+:root {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+
+  --background-color: #f5f5f5;
+  --text-color: #333;
+  --user-color: #aed4ff;
+  --assistant-color: #cccccc;
+  --input-background-color: #919191;
+  --input-text-color: #000000;
+
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #1a1a1a;
+    --text-color: #e0e0e0;
+    --user-color: #2c70bd;
+    --assistant-color: #414141;
+    --input-background-color: #2c2c2c;
+    --input-text-color: #ffffff;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
